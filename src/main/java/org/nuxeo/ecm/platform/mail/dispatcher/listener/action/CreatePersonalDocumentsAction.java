@@ -131,7 +131,7 @@ public class CreatePersonalDocumentsAction extends AbstractMailAction {
                         ccRecipients);
                 documentModel.setPropertyValue(TEXT_PROPERTY_NAME, text);
 
-                saveDocumentToPersonalWorkspace(session, documentModel,
+                documentModel = saveDocumentToPersonalWorkspace(session, documentModel,
                         currentUserName);
 
                 addDocumentToPersistentList(currentUserName, EMAILS_LIST_TITLE,
@@ -178,7 +178,7 @@ public class CreatePersonalDocumentsAction extends AbstractMailAction {
         return personalMailFolder;
     }
 
-    private void saveDocumentToPersonalWorkspace(CoreSession session,
+    private DocumentModel saveDocumentToPersonalWorkspace(CoreSession session,
             DocumentModel documentModel, String userName)
             throws ClientException {
         documentModel = session.createDocument(documentModel);
@@ -192,6 +192,7 @@ public class CreatePersonalDocumentsAction extends AbstractMailAction {
         documentModel.setACP(acp, true);
 
         session.save();
+        return documentModel;
     }
 
     private boolean addDocumentToPersistentList(String userName,
